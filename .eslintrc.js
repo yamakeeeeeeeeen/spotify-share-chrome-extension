@@ -24,7 +24,6 @@ module.exports = {
     ],
     'prefer-arrow-callback': 'error',
     'func-style': ['error', 'expression'],
-    'arrow-body-style': ['error', 'always'],
     'no-restricted-imports': [
       'error',
       { paths: [{ name: 'react', importNames: ['default'] }] }
@@ -32,7 +31,6 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/display-name': 'error',
-    'react/destructuring-assignment': ['error', 'never'],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'import/newline-after-import': 'error',
