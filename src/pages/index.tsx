@@ -1,17 +1,13 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
-import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
-import { SpotifyWebApi } from 'spotify-web-api-ts'
+import { useEffect, useState } from 'react'
 import type {
   CurrentlyPlaying,
   Track
 } from 'spotify-web-api-ts/types/types/SpotifyObjects'
 
-import { SPOTIFY } from '~/spotify-config'
-import { getAccessToken } from '~/utils/spotify/getAccessToken'
+import { useAuth } from '~/hooks/useAuth'
+import { useSpotify } from '~/hooks/useSpotify'
 import { getLoginPath } from '~/utils/spotify/getLoginPath'
-
-const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS } = SPOTIFY
 
 type Props = {
   loginPath: string
@@ -28,45 +24,26 @@ const implementsTrack = (arg: any): arg is Track => {
 const Home = ({
   loginPath
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { push, query } = useRouter()
-  const [accessToken, setAccessToken] = useState<string | null>(null)
-  const [spotify, setSpotify] = useState<SpotifyWebApi | null>(null)
   const [currPlaying, setCurrPlaying] = useState<
     string | CurrentlyPlaying | null
   >(null)
 
-  const login = useCallback(() => {
-    push(loginPath)
-  }, [loginPath, push])
-
-  useEffect(() => {
-    if (query?.code && query?.state) {
-      getAccessToken(query.code as string).then((token) => {
-        setAccessToken(token)
-      })
-      push('/')
-    }
-  }, [push, query])
-
-  useEffect(() => {
-    if (!accessToken) return
-
-    setSpotify(
-      new SpotifyWebApi({
-        accessToken,
-        clientId: CLIENT_ID || '',
-        clientSecret: CLIENT_SECRET || '',
-        redirectUri: REDIRECT_URIS || ''
-      })
-    )
-  }, [accessToken])
+  const { accessToken, login } = useAuth(loginPath)
+  const spotify = useSpotify(accessToken)
 
   useEffect(() => {
     if (!spotify) return
-    ;(async () => {
-      setCurrPlaying(await spotify.player.getCurrentlyPlayingTrack())
-    })()
-  }, [spotify])
+
+    spotify.player
+      .getCurrentlyPlayingTrack()
+      .then((value) => {
+        setCurrPlaying(value)
+      })
+      .catch(() => {
+        localStorage.removeItem('spotifyAccessToken')
+        login()
+      })
+  }, [login, spotify])
 
   return (
     <div>
