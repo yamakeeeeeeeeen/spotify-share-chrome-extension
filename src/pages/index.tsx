@@ -1,4 +1,3 @@
-import axios from 'axios'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
@@ -9,6 +8,7 @@ import type {
 } from 'spotify-web-api-ts/types/types/SpotifyObjects'
 
 import { SPOTIFY } from '~/spotify-config'
+import { getAccessToken } from '~/utils/spotify/getAccessToken'
 import { getLoginPath } from '~/utils/spotify/getLoginPath'
 
 const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS } = SPOTIFY
@@ -23,28 +23,6 @@ const implementsTrack = (arg: any): arg is Track => {
     typeof arg === 'object' &&
     typeof arg.disc_number === 'number'
   )
-}
-
-const getAccessToken = async (code: string) => {
-  const params = new URLSearchParams()
-  params.append('grant_type', 'authorization_code')
-  params.append('code', code)
-  params.append('redirect_uri', REDIRECT_URIS || '')
-
-  const response = await axios.post(
-    'https://accounts.spotify.com/api/token',
-    params,
-    {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `Basic ${Buffer.from(
-          `${CLIENT_ID}:${CLIENT_SECRET}`,
-          'utf-8'
-        ).toString('base64')}`
-      }
-    }
-  )
-  return response.data.access_token
 }
 
 const Home = ({
@@ -63,7 +41,7 @@ const Home = ({
 
   useEffect(() => {
     if (query?.code && query?.state) {
-      getAccessToken(query.code as string).then((token: string) => {
+      getAccessToken(query.code as string).then((token) => {
         setAccessToken(token)
       })
       push('/')
@@ -86,7 +64,6 @@ const Home = ({
   useEffect(() => {
     if (!spotify) return
     ;(async () => {
-      console.log(await spotify.player.getCurrentlyPlayingTrack())
       setCurrPlaying(await spotify.player.getCurrentlyPlayingTrack())
     })()
   }, [spotify])
