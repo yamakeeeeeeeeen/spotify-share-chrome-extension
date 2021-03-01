@@ -8,7 +8,7 @@ import type {
   Track
 } from 'spotify-web-api-ts/types/types/SpotifyObjects'
 
-import { SPOTIFY } from '../spotify-config'
+import { SPOTIFY } from '~/spotify-config'
 
 const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS } = SPOTIFY
 
@@ -42,7 +42,9 @@ const getAccessToken = async (code: string) => {
   return response.data.access_token
 }
 
-const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home = ({
+  loginPath
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { push, query } = useRouter()
   const [accessToken, setAccessToken] = useState<string | null>(null)
   const [spotify, setSpotify] = useState<SpotifyWebApi | null>(null)
@@ -51,8 +53,8 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   >(null)
 
   const login = useCallback(() => {
-    push(props.loginPath)
-  }, [props.loginPath, push])
+    push(loginPath)
+  }, [loginPath, push])
 
   useEffect(() => {
     if (query?.code && query?.state) {
@@ -135,5 +137,4 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   }
 }
 
-// eslint-disable-next-line import/no-default-export
 export default Home
