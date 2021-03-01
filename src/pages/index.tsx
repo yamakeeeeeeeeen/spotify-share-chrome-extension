@@ -9,8 +9,13 @@ import type {
 } from 'spotify-web-api-ts/types/types/SpotifyObjects'
 
 import { SPOTIFY } from '~/spotify-config'
+import { getLoginPath } from '~/utils/spotify/getLoginPath'
 
 const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS } = SPOTIFY
+
+type Props = {
+  loginPath: string
+}
 
 const implementsTrack = (arg: any): arg is Track => {
   return (
@@ -109,32 +114,10 @@ const Home = ({
   )
 }
 
-type Props = {
-  loginPath: string
-}
-
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const scopes = [
-    'streaming',
-    'user-read-email',
-    'user-read-private',
-    'user-read-playback-state',
-    'user-read-recently-played',
-    'playlist-modify-public',
-    'playlist-modify-private'
-  ]
-  const params = new URLSearchParams()
-  params.append('client_id', CLIENT_ID || '')
-  params.append('response_type', 'code')
-  params.append('redirect_uri', REDIRECT_URIS || '')
-  params.append('scope', scopes.join(' '))
-  params.append('state', 'state')
-
-  return {
-    props: {
-      loginPath: `https://accounts.spotify.com/authorize?${params.toString()}`
-    }
+export const getStaticProps: GetStaticProps<Props> = async () => ({
+  props: {
+    loginPath: getLoginPath()
   }
-}
+})
 
 export default Home
