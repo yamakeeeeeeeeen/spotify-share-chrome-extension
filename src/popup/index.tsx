@@ -1,12 +1,11 @@
+import { useAuth } from 'hooks/useAuth'
+import { useSpotify } from 'hooks/useSpotify'
 import React, { FC, useEffect, useState } from 'react'
 import {
   CurrentlyPlaying,
   Track
 } from 'spotify-web-api-ts/types/types/SpotifyObjects'
-
-import { useAuth } from '../hooks/useAuth'
-import { useSpotify } from '../hooks/useSpotify'
-import { getLoginPath } from '../utils/spotify/getLoginPath'
+import { getLoginPath } from 'utils/spotify/getLoginPath'
 
 const loginPath = getLoginPath()
 
