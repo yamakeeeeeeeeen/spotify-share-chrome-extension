@@ -7,7 +7,7 @@ module.exports = {
     ecmaFeatures: { jsx: true }
   },
   settings: { react: { version: 'detect' } },
-  env: { es2021: true, browser: true, jest: true, node: true },
+  env: { browser: true, jest: true, node: true },
   plugins: ['import', 'simple-import-sort', 'react-hooks'],
   extends: [
     'eslint:recommended',
@@ -24,10 +24,6 @@ module.exports = {
     ],
     'prefer-arrow-callback': 'error',
     'func-style': ['error', 'expression'],
-    'no-restricted-imports': [
-      'error',
-      { paths: [{ name: 'react', importNames: ['default'] }] }
-    ],
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/display-name': 'error',

@@ -1,4 +1,4 @@
-import { SPOTIFY } from '~/spotify-config'
+import { SPOTIFY } from '../../spotify-config'
 
 const { CLIENT_ID, REDIRECT_URIS } = SPOTIFY
 

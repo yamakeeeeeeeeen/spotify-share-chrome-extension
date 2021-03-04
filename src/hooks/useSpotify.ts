@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { SpotifyWebApi } from 'spotify-web-api-ts'
 
-import { SPOTIFY } from '~/spotify-config'
+import { SPOTIFY } from '../spotify-config'
 
 const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS } = SPOTIFY
 

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { SPOTIFY } from '~/spotify-config'
+import { SPOTIFY } from '../../spotify-config'
 
 const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS } = SPOTIFY
 

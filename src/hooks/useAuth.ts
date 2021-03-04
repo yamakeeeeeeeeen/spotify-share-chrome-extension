@@ -1,25 +1,27 @@
-import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
-import { getAccessToken } from '~/utils/spotify/getAccessToken'
+import { getAccessToken } from '../utils/spotify/getAccessToken'
+import { useQuery } from '../utils/spotify/useQuery'
 
 export const useAuth = (
   loginPath: string
 ): { accessToken: string | null; login: () => void } => {
-  const { push, query } = useRouter()
+  const { push } = useHistory()
+  const query = useQuery()
   const [accessToken, setAccessToken] = useState<string | null>(null)
 
   const login = useCallback(() => {
-    push(loginPath)
-  }, [loginPath, push])
+    window.location.href = loginPath
+  }, [loginPath])
 
   useEffect(() => {
     setAccessToken(localStorage.getItem('spotifyAccessToken'))
   }, [])
 
   useEffect(() => {
-    if (query?.code && query?.state) {
-      getAccessToken(query.code as string).then((token) => {
+    if (query.get('code') && query.get('state')) {
+      getAccessToken(query.get('code') as string).then((token) => {
         localStorage.setItem('spotifyAccessToken', token)
         setAccessToken(token)
       })

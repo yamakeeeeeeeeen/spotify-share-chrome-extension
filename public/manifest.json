@@ -1,0 +1,16 @@
+{
+  "name": "Nowplaying on Spotify",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "",
+  "icons": {
+    "512": "images/icon-512x512.png"
+  },
+  "browser_action": {
+    "default_icon": "images/icon-512x512.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "page": "background.html"
+  }
+}
