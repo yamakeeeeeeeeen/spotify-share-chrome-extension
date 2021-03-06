@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 import { Player } from 'components/Player'
 import { useAuth } from 'hooks/useAuth'
 import { useSpotify } from 'hooks/useSpotify'
@@ -14,7 +14,7 @@ export const PopupPage: FC = () => {
 
   return (
     <Box w={400} h={500} p={4} bgColor="gray.50">
-      {!accessToken && <button onClick={login}>login</button>}
+      {!accessToken && <Button onClick={login}>login</Button>}
       {spotify && <Player spotify={spotify} />}
     </Box>
   )
