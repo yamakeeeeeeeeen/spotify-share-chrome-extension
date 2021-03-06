@@ -1,8 +1,7 @@
+import { useQuery } from 'hooks/useQuery'
 import { useCallback, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-
-import { getAccessToken } from '../utils/spotify/getAccessToken'
-import { useQuery } from '../utils/spotify/useQuery'
+import { getAccessToken } from 'utils/spotify/getAccessToken'
 
 export const useAuth = (
   loginPath: string
