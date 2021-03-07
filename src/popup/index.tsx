@@ -13,7 +13,12 @@ export const PopupPage: FC = () => {
   const spotify = useSpotify(accessToken)
 
   return (
-    <Box w={400} h={500} p={4} bgColor="gray.50">
+    <Box
+      w={300}
+      h={500}
+      p={4}
+      background="rgb(18,18,18) linear-gradient(0deg, rgba(18,18,18,1) 0%, rgba(57,57,57,1) 100%)"
+    >
       {!accessToken && <Button onClick={login}>login</Button>}
       {spotify && <Player spotify={spotify} />}
     </Box>
