@@ -10,7 +10,7 @@ export const getLoginPath = (): string => {
     'user-read-playback-state',
     'user-read-recently-played',
     'playlist-modify-public',
-    'playlist-modify-private'
+    'playlist-modify-private',
   ]
   const params = new URLSearchParams()
   params.append('client_id', CLIENT_ID || '')

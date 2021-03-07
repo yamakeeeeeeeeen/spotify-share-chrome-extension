@@ -2,13 +2,13 @@ export const playerButtonStyles = {
   bgColor: 'transparent',
   color: '#b3b3b3',
   _active: {
-    color: '#b3b3b3'
+    color: '#b3b3b3',
   },
   _hover: {
     bgColor: 'transparent',
-    color: '#fff'
+    color: '#fff',
   },
   _focus: {
-    border: 'none'
-  }
+    border: 'none',
+  },
 }

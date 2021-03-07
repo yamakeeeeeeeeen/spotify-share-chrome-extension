@@ -16,8 +16,8 @@ export const getAccessToken = async (code: string): Promise<string> => {
       Authorization: `Basic ${Buffer.from(
         `${CLIENT_ID}:${CLIENT_SECRET}`,
         'utf-8'
-      ).toString('base64')}`
-    }
+      ).toString('base64')}`,
+    },
   })
   return response.data.access_token
 }

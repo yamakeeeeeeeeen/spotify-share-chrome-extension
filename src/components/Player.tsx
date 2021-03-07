@@ -18,7 +18,16 @@ type ComponentProps = {
 const iconSize = 30
 
 const Component: FC<ComponentProps> = ({
-  player: { track, isPlaying, device, play, pause, prev, next, getPlaybackInfo }
+  player: {
+    track,
+    isPlaying,
+    device,
+    play,
+    pause,
+    prev,
+    next,
+    getPlaybackInfo,
+  },
 }) => (
   <Flex justifyContent="center" w={270}>
     {track ? (

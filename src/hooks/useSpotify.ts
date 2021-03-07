@@ -17,7 +17,7 @@ export const useSpotify = (
         accessToken,
         clientId: CLIENT_ID || '',
         clientSecret: CLIENT_SECRET || '',
-        redirectUri: REDIRECT_URIS || ''
+        redirectUri: REDIRECT_URIS || '',
       })
     )
   }, [accessToken])

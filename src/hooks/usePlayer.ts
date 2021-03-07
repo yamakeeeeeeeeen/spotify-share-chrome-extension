@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import type { SpotifyWebApi } from 'spotify-web-api-ts'
 import type {
   CurrentlyPlayingContext,
-  Device
+  Device,
 } from 'spotify-web-api-ts/types/types/SpotifyObjects'
 
 export type Track = {
@@ -16,7 +16,7 @@ export type Track = {
 export const usePlayer = (spotify: SpotifyWebApi) => {
   const [
     playbackInfo,
-    setPlaybackInfo
+    setPlaybackInfo,
   ] = useState<CurrentlyPlayingContext | null>(null)
 
   const [isPlaying, setIsPlaying] = useState(false)
@@ -105,7 +105,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
       albumName: playbackInfo.item?.album.name || '',
       artist: playbackInfo.item?.artists[0].name || '',
       cover: playbackInfo.item?.album.images[0].url || '',
-      trackUrl: playbackInfo.item?.external_urls.spotify || ''
+      trackUrl: playbackInfo.item?.external_urls.spotify || '',
     })
     setDevice(playbackInfo.device)
   }, [playbackInfo])
