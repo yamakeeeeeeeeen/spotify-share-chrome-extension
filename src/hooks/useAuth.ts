@@ -20,10 +20,14 @@ export const useAuth = (
 
   useEffect(() => {
     if (query.get('code') && query.get('state')) {
-      getAccessToken(query.get('code') as string).then((token) => {
-        localStorage.setItem('spotifyAccessToken', token)
-        setAccessToken(token)
-      })
+      getAccessToken(query.get('code') as string)
+        .then((token) => {
+          localStorage.setItem('spotifyAccessToken', token)
+          setAccessToken(token)
+        })
+        .catch((reason) => {
+          console.error(reason)
+        })
       push('/')
     }
   }, [push, query])
