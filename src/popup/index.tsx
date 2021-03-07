@@ -15,7 +15,6 @@ export const PopupPage: FC = () => {
   return (
     <Box
       w={300}
-      h={500}
       p={4}
       background="rgb(18,18,18) linear-gradient(0deg, rgba(18,18,18,1) 0%, rgba(57,57,57,1) 100%)"
     >
