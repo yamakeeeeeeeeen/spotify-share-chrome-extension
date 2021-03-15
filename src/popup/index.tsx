@@ -4,6 +4,7 @@ import { useAuth } from 'hooks/useAuth'
 import { useSpotify } from 'hooks/useSpotify'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
+import { getAccessTokenFromLocalStorage } from 'utils/spotify/localStorageOperaters'
 import { login } from 'utils/spotify/login'
 
 export const PopupPage: FC = () => {
@@ -13,8 +14,7 @@ export const PopupPage: FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
-    const token = localStorage.getItem('spotifyAccessToken')
-    const updateTime = localStorage.getItem('spotifyAccessTokenUpdateTime')
+    const { token, updateTime } = getAccessTokenFromLocalStorage()
     const now = new Date().getTime()
     // 55分以内に発行されたトークンであれば有効
     const isValidToken = now - Number(updateTime) < 1000 * 60 * 55

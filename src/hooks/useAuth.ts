@@ -2,7 +2,7 @@ import { useQuery } from 'hooks/useQuery'
 import { useCallback, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { getAccessToken } from 'utils/spotify/getAccessToken'
-import { getLoginPath } from 'utils/spotify/getLoginPath'
+import { setAccessTokenToLocalStorage } from 'utils/spotify/localStorageOperaters'
 
 export const useAuth = (): {
   accessToken: string | null
@@ -24,7 +24,7 @@ export const useAuth = (): {
     if (query.get('code') && query.get('state')) {
       getAccessToken(query.get('code') as string)
         .then((token) => {
-          localStorage.setItem('spotifyAccessToken', token)
+          setAccessTokenToLocalStorage(token)
           setAccessToken(token)
         })
         .catch((reason) => {
