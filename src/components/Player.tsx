@@ -30,61 +30,53 @@ const Component: FC<ComponentProps> = ({
   },
 }) => (
   <Flex justifyContent="center" w={270}>
-    {track ? (
-      <Box>
-        <Flex justifyContent="center" mb={3}>
-          <Image boxSize="250px" src={track.cover} alt={track.name} />
-        </Flex>
-        <Box mb={4}>
-          <Text mb={2} fontSize="lg" textAlign="center" color="white">
-            {track.name}
-          </Text>
-          <Text fontSize="sm" textAlign="center" color="#b3b3b3">
-            {track.artist} - {track.albumName}
-          </Text>
-        </Box>
-
-        <Flex justifyContent="center">
-          <Button onClick={prev} {...playerButtonStyles}>
-            <BiSkipPrevious size={iconSize} />
-          </Button>
-          {isPlaying ? (
-            <Button onClick={pause} {...playerButtonStyles}>
-              <BiPause size={iconSize} />
-            </Button>
-          ) : (
-            <Button onClick={play} {...playerButtonStyles}>
-              <BiPlay size={iconSize} />
-            </Button>
-          )}
-          <Button onClick={next} {...playerButtonStyles}>
-            <BiSkipNext size={iconSize} />
-          </Button>
-        </Flex>
-
-        <Flex justifyContent="center">
-          <TwitterShareButton track={track} />
-          <ReloadButton getPlaybackInfo={getPlaybackInfo} />
-        </Flex>
-
-        {device && (
-          <Text mt={10} fontSize="sm" textAlign="center" color="#b3b3b3">
-            Playing in {device.name}
-          </Text>
-        )}
+    <Box>
+      <Flex justifyContent="center" mb={3}>
+        <Image boxSize="250px" src={track?.cover} alt={track?.name} />
+      </Flex>
+      <Box mb={4}>
+        <Text mb={2} fontSize="lg" textAlign="center" color="white">
+          {track?.name}
+        </Text>
+        <Text fontSize="sm" textAlign="center" color="#b3b3b3">
+          {track?.artist} - {track?.albumName}
+        </Text>
       </Box>
-    ) : (
-      <Text fontSize="lg" textAlign="center" color="#b3b3b3">
-        {`It's not playing.`}
-      </Text>
-    )}
+
+      <Flex justifyContent="center">
+        <Button onClick={prev} {...playerButtonStyles}>
+          <BiSkipPrevious size={iconSize} />
+        </Button>
+        {isPlaying ? (
+          <Button onClick={pause} {...playerButtonStyles}>
+            <BiPause size={iconSize} />
+          </Button>
+        ) : (
+          <Button onClick={play} {...playerButtonStyles}>
+            <BiPlay size={iconSize} />
+          </Button>
+        )}
+        <Button onClick={next} {...playerButtonStyles}>
+          <BiSkipNext size={iconSize} />
+        </Button>
+      </Flex>
+
+      <Flex justifyContent="center">
+        <TwitterShareButton track={track} />
+        <ReloadButton getPlaybackInfo={getPlaybackInfo} />
+      </Flex>
+
+      {device && (
+        <Text mt={10} fontSize="sm" textAlign="center" color="#b3b3b3">
+          Playing in {device.name}
+        </Text>
+      )}
+    </Box>
   </Flex>
 )
 
 export const Player: FC<Props> = ({ spotify }) => {
   const player = usePlayer(spotify)
-
-  console.log('spotify', spotify.player.getPlaybackInfo())
 
   return <Component player={player} />
 }
