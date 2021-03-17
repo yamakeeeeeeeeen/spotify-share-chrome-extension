@@ -33,15 +33,18 @@ export const useAuth = (): {
 
   // NOTE: spotifyのログインを行ないリダイレクトされた時に実行される
   useEffect(() => {
-    if (query.get('code') && query.get('state')) {
-      getAccessToken(query.get('code') as string)
+    const code = query.get('code')
+    const state = query.get('state')
+
+    if (code && state) {
+      getAccessToken(code as string)
         .then((token) => {
           setAccessTokenToLocalStorage(token)
           setAccessToken(token)
           setIsLoggedIn(true)
         })
         .catch((reason) => {
-          console.error(reason)
+          throw new Error(reason)
         })
       push('/')
     }
