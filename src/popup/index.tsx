@@ -1,14 +1,12 @@
 import { Box, Button } from '@chakra-ui/react'
 import { Player } from 'components/Player'
 import { useAuth } from 'hooks/useAuth'
-// import { useSpotify } from 'hooks/useSpotify'
 import type { FC } from 'react'
 import React from 'react'
 import { login } from 'utils/spotify/login'
 
 export const PopupPage: FC = () => {
   const { isLoggedIn, spotify } = useAuth()
-  // const spotify = useSpotify(accessToken)
 
   return (
     <Box
