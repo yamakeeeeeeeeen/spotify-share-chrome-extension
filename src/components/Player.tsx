@@ -1,12 +1,12 @@
-import { Box, Button, Flex, Image, Text } from '@chakra-ui/react'
-import { ReloadButton } from 'components/ReloadButton'
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
+import { IconButton } from 'components/IconButton'
 import { TwitterShareButton } from 'components/TwitterShareButton'
 import { usePlayer } from 'hooks/usePlayer'
-import type { FC } from 'react'
+import type { VFC } from 'react'
 import React from 'react'
 import { BiPause, BiPlay, BiSkipNext, BiSkipPrevious } from 'react-icons/bi'
+import { IoReloadOutline } from 'react-icons/io5'
 import type { SpotifyWebApi } from 'spotify-web-api-ts'
-import { playerButtonStyles } from 'styles'
 
 type Props = {
   spotify: SpotifyWebApi
@@ -17,7 +17,7 @@ type ComponentProps = {
 
 const iconSize = 30
 
-const Component: FC<ComponentProps> = ({
+const Component: VFC<ComponentProps> = ({
   player: {
     track,
     isPlaying,
@@ -44,26 +44,21 @@ const Component: FC<ComponentProps> = ({
       </Box>
 
       <Flex justifyContent="center">
-        <Button onClick={prev} {...playerButtonStyles}>
-          <BiSkipPrevious size={iconSize} />
-        </Button>
+        <IconButton onClick={prev} icon={<BiSkipPrevious size={iconSize} />} />
         {isPlaying ? (
-          <Button onClick={pause} {...playerButtonStyles}>
-            <BiPause size={iconSize} />
-          </Button>
+          <IconButton onClick={pause} icon={<BiPause size={iconSize} />} />
         ) : (
-          <Button onClick={play} {...playerButtonStyles}>
-            <BiPlay size={iconSize} />
-          </Button>
+          <IconButton onClick={play} icon={<BiPlay size={iconSize} />} />
         )}
-        <Button onClick={next} {...playerButtonStyles}>
-          <BiSkipNext size={iconSize} />
-        </Button>
+        <IconButton onClick={next} icon={<BiSkipNext size={iconSize} />} />
       </Flex>
 
       <Flex justifyContent="center">
         <TwitterShareButton track={track} />
-        <ReloadButton getPlaybackInfo={getPlaybackInfo} />
+        <IconButton
+          onClick={getPlaybackInfo}
+          icon={<IoReloadOutline size={20} />}
+        />
       </Flex>
 
       {device && (
@@ -75,7 +70,7 @@ const Component: FC<ComponentProps> = ({
   </Flex>
 )
 
-export const Player: FC<Props> = ({ spotify }) => {
+export const Player: VFC<Props> = ({ spotify }) => {
   const player = usePlayer(spotify)
 
   return <Component player={player} />
