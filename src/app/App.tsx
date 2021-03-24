@@ -1,10 +1,10 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { PopupPage } from 'popup'
-import type { FC } from 'react'
+import type { VFC } from 'react'
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-export const App: FC = () => {
+export const App: VFC = () => {
   return (
     <Router>
       <ChakraProvider>
