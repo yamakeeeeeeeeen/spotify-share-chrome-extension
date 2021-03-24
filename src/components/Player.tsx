@@ -1,10 +1,11 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import { IconButton } from 'components/IconButton'
-import { TwitterShareButton } from 'components/TwitterShareButton'
 import { usePlayer } from 'hooks/usePlayer'
+import { useTwitterShare } from 'hooks/useTwitterShare'
 import type { VFC } from 'react'
 import React from 'react'
 import { BiPause, BiPlay, BiSkipNext, BiSkipPrevious } from 'react-icons/bi'
+import { ImTwitter } from 'react-icons/im'
 import { IoReloadOutline } from 'react-icons/io5'
 import type { SpotifyWebApi } from 'spotify-web-api-ts'
 
@@ -13,6 +14,7 @@ type Props = {
 }
 type ComponentProps = {
   player: ReturnType<typeof usePlayer>
+  twitter: ReturnType<typeof useTwitterShare>
 }
 
 const iconSize = 30
@@ -28,6 +30,7 @@ const Component: VFC<ComponentProps> = ({
     next,
     getPlaybackInfo,
   },
+  twitter: { handleShare, isDisabled },
 }) => (
   <Flex justifyContent="center" w={270}>
     <Box>
@@ -54,7 +57,11 @@ const Component: VFC<ComponentProps> = ({
       </Flex>
 
       <Flex justifyContent="center">
-        <TwitterShareButton track={track} />
+        <IconButton
+          onClick={handleShare}
+          disabled={isDisabled}
+          icon={<ImTwitter size={20} />}
+        />
         <IconButton
           onClick={getPlaybackInfo}
           icon={<IoReloadOutline size={20} />}
@@ -72,6 +79,7 @@ const Component: VFC<ComponentProps> = ({
 
 export const Player: VFC<Props> = ({ spotify }) => {
   const player = usePlayer(spotify)
+  const twitter = useTwitterShare(player.track)
 
-  return <Component player={player} />
+  return <Component player={player} twitter={twitter} />
 }
