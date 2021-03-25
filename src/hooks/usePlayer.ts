@@ -30,12 +30,8 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
   const getPlaybackInfo = useCallback(() => {
     spotify.player
       .getPlaybackInfo()
-      .then((value) => {
-        setPlaybackInfo(value)
-      })
-      .catch((reason) => {
-        console.error(reason)
-      })
+      .then((value) => setPlaybackInfo(value))
+      .catch((reason) => console.error(reason))
   }, [spotify.player])
 
   /**
@@ -44,12 +40,8 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
   const pause = useCallback(() => {
     spotify.player
       .pause()
-      .then(async () => {
-        await getPlaybackInfo()
-      })
-      .catch((reason) => {
-        console.error(reason)
-      })
+      .then(async () => await getPlaybackInfo())
+      .catch((reason) => console.error(reason))
   }, [getPlaybackInfo, spotify.player])
 
   /**
@@ -58,12 +50,8 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
   const play = useCallback(() => {
     spotify.player
       .play()
-      .then(async () => {
-        await getPlaybackInfo()
-      })
-      .catch((reason) => {
-        console.error(reason)
-      })
+      .then(async () => await getPlaybackInfo())
+      .catch((reason) => console.error(reason))
   }, [getPlaybackInfo, spotify.player])
 
   /**
@@ -72,12 +60,8 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
   const prev = useCallback(() => {
     spotify.player
       .skipToPrevious()
-      .then(async () => {
-        await getPlaybackInfo()
-      })
-      .catch((reason) => {
-        console.error(reason)
-      })
+      .then(async () => await getPlaybackInfo())
+      .catch((reason) => console.error(reason))
   }, [getPlaybackInfo, spotify.player])
 
   /**
@@ -86,12 +70,8 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
   const next = useCallback(() => {
     spotify.player
       .skipToNext()
-      .then(async () => {
-        await getPlaybackInfo()
-      })
-      .catch((reason) => {
-        console.error(reason)
-      })
+      .then(async () => await getPlaybackInfo())
+      .catch((reason) => console.error(reason))
   }, [getPlaybackInfo, spotify.player])
 
   useEffect(() => {
