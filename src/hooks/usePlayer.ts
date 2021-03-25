@@ -20,6 +20,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
   ] = useState<CurrentlyPlayingContext | null>(null)
 
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(false)
   const [track, setTrack] = useState<Track | null>(null)
   const [device, setDevice] = useState<Device | null>(null)
 
@@ -99,6 +100,20 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
   }, [])
   useEffect(() => {
     if (playbackInfo === null) return
+
+    const trackId = playbackInfo.item?.id
+    if (trackId) {
+      spotify.library
+        .isTrackSaved(trackId)
+        .then((value) => setIsFavorite(value))
+        .catch((reason) => console.error(reason))
+    } else {
+      setIsFavorite(false)
+    }
+  }, [playbackInfo, spotify.library])
+  useEffect(() => {
+    if (playbackInfo === null) return
+
     setIsPlaying(playbackInfo.is_playing)
     setTrack({
       name: playbackInfo.item?.name || '',
@@ -110,5 +125,15 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
     setDevice(playbackInfo.device)
   }, [playbackInfo])
 
-  return { track, isPlaying, device, play, pause, prev, next, getPlaybackInfo }
+  return {
+    track,
+    isPlaying,
+    isFavorite,
+    device,
+    play,
+    pause,
+    prev,
+    next,
+    getPlaybackInfo,
+  }
 }
