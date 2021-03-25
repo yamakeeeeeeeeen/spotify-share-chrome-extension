@@ -5,6 +5,8 @@ const { CLIENT_ID, REDIRECT_URIS } = SPOTIFY
 export const getLoginPath = (): string => {
   const scopes = [
     'streaming',
+    'user-library-modify',
+    'user-library-read',
     'user-read-email',
     'user-read-private',
     'user-read-playback-state',
