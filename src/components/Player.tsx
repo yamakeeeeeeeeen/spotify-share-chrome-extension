@@ -4,6 +4,7 @@ import { usePlayer } from 'hooks/usePlayer'
 import { useTwitterShare } from 'hooks/useTwitterShare'
 import type { VFC } from 'react'
 import React from 'react'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { BiPause, BiPlay, BiSkipNext, BiSkipPrevious } from 'react-icons/bi'
 import { ImTwitter } from 'react-icons/im'
 import { IoReloadOutline } from 'react-icons/io5'
@@ -23,6 +24,7 @@ const Component: VFC<ComponentProps> = ({
   player: {
     track,
     isPlaying,
+    isFavorite,
     device,
     play,
     pause,
@@ -65,6 +67,15 @@ const Component: VFC<ComponentProps> = ({
         <IconButton
           onClick={getPlaybackInfo}
           icon={<IoReloadOutline size={20} />}
+        />
+        <IconButton
+          icon={
+            isFavorite ? (
+              <AiFillHeart size={20} color={'#1db954'} />
+            ) : (
+              <AiOutlineHeart size={20} />
+            )
+          }
         />
       </Flex>
 
