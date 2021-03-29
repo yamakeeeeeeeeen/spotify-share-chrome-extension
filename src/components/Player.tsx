@@ -30,7 +30,7 @@ const Component: VFC<ComponentProps> = ({
     pause,
     prev,
     next,
-    addFavorite,
+    toggleFavorite,
     getPlaybackInfo,
   },
   twitter: { handleShare, isDisabled },
@@ -69,17 +69,18 @@ const Component: VFC<ComponentProps> = ({
           onClick={getPlaybackInfo}
           icon={<IoReloadOutline size={20} />}
         />
-        <IconButton
-          // TODO: toggleにする
-          onClick={() => addFavorite(track?.id || '')}
-          icon={
-            isFavorite ? (
-              <AiFillHeart size={20} color={'#1db954'} />
-            ) : (
-              <AiOutlineHeart size={20} />
-            )
-          }
-        />
+        {track && (
+          <IconButton
+            onClick={() => toggleFavorite(track.id, isFavorite)}
+            icon={
+              isFavorite ? (
+                <AiFillHeart size={20} color={'#1db954'} />
+              ) : (
+                <AiOutlineHeart size={20} />
+              )
+            }
+          />
+        )}
       </Flex>
 
       {device && (

@@ -75,12 +75,22 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
       .catch((reason) => console.error(reason))
   }, [getPlaybackInfo, spotify.player])
 
-  const addFavorite = useCallback(
-    (trackId: string) => {
-      spotify.library
-        .saveTrack(trackId)
-        .then(async () => await getPlaybackInfo())
-        .catch((reason) => console.error(reason))
+  /**
+   * toggle favorite state
+   */
+  const toggleFavorite = useCallback(
+    (trackId: string, isFavorite: boolean) => {
+      if (isFavorite) {
+        spotify.library
+          .removeSavedTrack(trackId)
+          .then(async () => await getPlaybackInfo())
+          .catch((reason) => console.error(reason))
+      } else {
+        spotify.library
+          .saveTrack(trackId)
+          .then(async () => await getPlaybackInfo())
+          .catch((reason) => console.error(reason))
+      }
     },
     [getPlaybackInfo, spotify.library]
   )
@@ -126,7 +136,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
     pause,
     prev,
     next,
-    addFavorite,
+    toggleFavorite,
     getPlaybackInfo,
   }
 }
