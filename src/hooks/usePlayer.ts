@@ -6,6 +6,7 @@ import type {
 } from 'spotify-web-api-ts/types/types/SpotifyObjects'
 
 export type Track = {
+  id: string
   name: string
   albumName: string
   artist: string
@@ -74,6 +75,16 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
       .catch((reason) => console.error(reason))
   }, [getPlaybackInfo, spotify.player])
 
+  const addFavorite = useCallback(
+    (trackId: string) => {
+      spotify.library
+        .saveTrack(trackId)
+        .then(async () => await getPlaybackInfo())
+        .catch((reason) => console.error(reason))
+    },
+    [getPlaybackInfo, spotify.library]
+  )
+
   useEffect(() => {
     getPlaybackInfo()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,6 +107,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
 
     setIsPlaying(playbackInfo.is_playing)
     setTrack({
+      id: playbackInfo.item?.id || '',
       name: playbackInfo.item?.name || '',
       albumName: playbackInfo.item?.album.name || '',
       artist: playbackInfo.item?.artists[0].name || '',
@@ -114,6 +126,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
     pause,
     prev,
     next,
+    addFavorite,
     getPlaybackInfo,
   }
 }

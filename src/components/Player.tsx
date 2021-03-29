@@ -30,6 +30,7 @@ const Component: VFC<ComponentProps> = ({
     pause,
     prev,
     next,
+    addFavorite,
     getPlaybackInfo,
   },
   twitter: { handleShare, isDisabled },
@@ -69,6 +70,8 @@ const Component: VFC<ComponentProps> = ({
           icon={<IoReloadOutline size={20} />}
         />
         <IconButton
+          // TODO: toggleにする
+          onClick={() => addFavorite(track?.id || '')}
           icon={
             isFavorite ? (
               <AiFillHeart size={20} color={'#1db954'} />
