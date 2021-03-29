@@ -80,7 +80,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
    * toggle favorite state
    */
   const toggleFavorite = useCallback(
-    (trackId: string, isFavorite: boolean) => {
+    (trackId: string) => {
       if (isFavorite) {
         spotify.library
           .removeSavedTrack(trackId)
@@ -93,7 +93,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
           .catch((reason) => console.error(reason))
       }
     },
-    [getPlaybackInfo, spotify.library]
+    [getPlaybackInfo, isFavorite, spotify.library]
   )
 
   /**

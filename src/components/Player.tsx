@@ -85,7 +85,7 @@ const Component: VFC<ComponentProps> = ({
         />
         {track && (
           <IconButton
-            onClick={() => toggleFavorite(track.id, isFavorite)}
+            onClick={() => toggleFavorite(track.id)}
             icon={
               isFavorite ? (
                 <AiFillHeart size={20} color={'#1db954'} />
