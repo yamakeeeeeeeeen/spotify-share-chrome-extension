@@ -5,7 +5,13 @@ import { useTwitterShare } from 'hooks/useTwitterShare'
 import type { VFC } from 'react'
 import React from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
-import { BiPause, BiPlay, BiSkipNext, BiSkipPrevious } from 'react-icons/bi'
+import {
+  BiPause,
+  BiPlay,
+  BiShuffle,
+  BiSkipNext,
+  BiSkipPrevious,
+} from 'react-icons/bi'
 import { ImTwitter } from 'react-icons/im'
 import { IoReloadOutline } from 'react-icons/io5'
 import type { SpotifyWebApi } from 'spotify-web-api-ts'
@@ -24,6 +30,7 @@ const Component: VFC<ComponentProps> = ({
   player: {
     track,
     isPlaying,
+    isShuffle,
     isFavorite,
     device,
     play,
@@ -50,6 +57,12 @@ const Component: VFC<ComponentProps> = ({
       </Box>
 
       <Flex justifyContent="center">
+        <IconButton
+          onClick={prev}
+          icon={
+            <BiShuffle size={20} {...(isShuffle && { color: '#1db954' })} />
+          }
+        />
         <IconButton onClick={prev} icon={<BiSkipPrevious size={iconSize} />} />
         {isPlaying ? (
           <IconButton onClick={pause} icon={<BiPause size={iconSize} />} />

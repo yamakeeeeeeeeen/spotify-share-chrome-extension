@@ -21,6 +21,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
   ] = useState<CurrentlyPlayingContext | null>(null)
 
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isShuffle, setIsShuffle] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
   const [track, setTrack] = useState<Track | null>(null)
   const [device, setDevice] = useState<Device | null>(null)
@@ -116,6 +117,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
     if (playbackInfo === null) return
 
     setIsPlaying(playbackInfo.is_playing)
+    setIsShuffle(playbackInfo.shuffle_state)
     setTrack({
       id: playbackInfo.item?.id || '',
       name: playbackInfo.item?.name || '',
@@ -130,6 +132,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
   return {
     track,
     isPlaying,
+    isShuffle,
     isFavorite,
     device,
     play,
