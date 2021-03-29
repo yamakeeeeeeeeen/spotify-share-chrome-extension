@@ -38,6 +38,7 @@ const Component: VFC<ComponentProps> = ({
     prev,
     next,
     toggleFavorite,
+    toggleShuffle,
     getPlaybackInfo,
   },
   twitter: { handleShare, isDisabled },
@@ -58,7 +59,7 @@ const Component: VFC<ComponentProps> = ({
 
       <Flex justifyContent="center">
         <IconButton
-          onClick={prev}
+          onClick={toggleShuffle}
           icon={
             <BiShuffle size={20} {...(isShuffle && { color: '#1db954' })} />
           }

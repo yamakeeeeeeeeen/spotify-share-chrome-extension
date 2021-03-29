@@ -96,6 +96,16 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
     [getPlaybackInfo, spotify.library]
   )
 
+  /**
+   * toggle shuffle state
+   */
+  const toggleShuffle = useCallback(() => {
+    spotify.player
+      .setShuffle(!isShuffle)
+      .then(async () => await getPlaybackInfo())
+      .catch((reason) => console.error(reason))
+  }, [getPlaybackInfo, isShuffle, spotify.player])
+
   useEffect(() => {
     getPlaybackInfo()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -140,6 +150,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
     prev,
     next,
     toggleFavorite,
+    toggleShuffle,
     getPlaybackInfo,
   }
 }
