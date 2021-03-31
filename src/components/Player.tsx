@@ -12,6 +12,7 @@ import {
   BiSkipNext,
   BiSkipPrevious,
 } from 'react-icons/bi'
+import { IoRepeat } from 'react-icons/io5'
 import { ImTwitter } from 'react-icons/im'
 import { IoReloadOutline } from 'react-icons/io5'
 import type { SpotifyWebApi } from 'spotify-web-api-ts'
@@ -31,6 +32,7 @@ const Component: VFC<ComponentProps> = ({
     track,
     isPlaying,
     isShuffle,
+    repeatState,
     isFavorite,
     device,
     play,
@@ -39,6 +41,7 @@ const Component: VFC<ComponentProps> = ({
     next,
     toggleFavorite,
     toggleShuffle,
+    nextRepeatState,
     getPlaybackInfo,
   },
   twitter: { handleShare, isDisabled },
@@ -71,6 +74,18 @@ const Component: VFC<ComponentProps> = ({
           <IconButton onClick={play} icon={<BiPlay size={iconSize} />} />
         )}
         <IconButton onClick={next} icon={<BiSkipNext size={iconSize} />} />
+        <IconButton
+          onClick={nextRepeatState}
+          icon={
+            <IoRepeat
+              size={26}
+              // TODO: スタイル調整
+              {...(repeatState === 'context'
+                ? { color: '#1db954' }
+                : repeatState === 'track' && { color: 'red' })}
+            />
+          }
+        />
       </Flex>
 
       <Flex justifyContent="center">

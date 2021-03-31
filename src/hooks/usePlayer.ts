@@ -3,6 +3,7 @@ import type { SpotifyWebApi } from 'spotify-web-api-ts'
 import type {
   CurrentlyPlayingContext,
   Device,
+  RepeatState,
 } from 'spotify-web-api-ts/types/types/SpotifyObjects'
 
 export type Track = {
@@ -22,6 +23,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
 
   const [isPlaying, setIsPlaying] = useState(false)
   const [isShuffle, setIsShuffle] = useState(false)
+  const [repeatState, setRepeatState] = useState<RepeatState>('off')
   const [isFavorite, setIsFavorite] = useState(false)
   const [track, setTrack] = useState<Track | null>(null)
   const [device, setDevice] = useState<Device | null>(null)
@@ -106,6 +108,22 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
       .catch((reason) => console.error(reason))
   }, [getPlaybackInfo, isShuffle, spotify.player])
 
+  /**
+   * change to next repeat state
+   */
+  const nextRepeatState = useCallback(() => {
+    const nextState: RepeatState =
+      repeatState === 'off'
+        ? 'context'
+        : repeatState === 'context'
+        ? 'track'
+        : 'off'
+    spotify.player
+      .setRepeat(nextState)
+      .then(async () => await getPlaybackInfo())
+      .catch((reason) => console.error(reason))
+  }, [getPlaybackInfo, repeatState, spotify.player])
+
   useEffect(() => {
     getPlaybackInfo()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -128,6 +146,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
 
     setIsPlaying(playbackInfo.is_playing)
     setIsShuffle(playbackInfo.shuffle_state)
+    setRepeatState(playbackInfo.repeat_state)
     setTrack({
       id: playbackInfo.item?.id || '',
       name: playbackInfo.item?.name || '',
@@ -143,6 +162,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
     track,
     isPlaying,
     isShuffle,
+    repeatState,
     isFavorite,
     device,
     play,
@@ -151,6 +171,7 @@ export const usePlayer = (spotify: SpotifyWebApi) => {
     next,
     toggleFavorite,
     toggleShuffle,
+    nextRepeatState,
     getPlaybackInfo,
   }
 }
