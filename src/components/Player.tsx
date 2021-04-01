@@ -12,8 +12,8 @@ import {
   BiSkipNext,
   BiSkipPrevious,
 } from 'react-icons/bi'
-import { IoRepeat } from 'react-icons/io5'
 import { ImTwitter } from 'react-icons/im'
+import { IoRepeat } from 'react-icons/io5'
 import { IoReloadOutline } from 'react-icons/io5'
 import type { SpotifyWebApi } from 'spotify-web-api-ts'
 
