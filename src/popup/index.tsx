@@ -1,4 +1,4 @@
-import { Box, Button } from '@chakra-ui/react'
+import { Box, Button, Flex } from '@chakra-ui/react'
 import { Player } from 'components/Player'
 import { useAuth } from 'hooks/useAuth'
 import type { VFC } from 'react'
@@ -19,7 +19,19 @@ export const PopupPage: VFC = () => {
       {isLoggedIn && spotify ? (
         <Player spotify={spotify} />
       ) : (
-        <Button onClick={login}>login</Button>
+        <Flex justifyContent="center">
+          <Button
+            onClick={login}
+            w={160}
+            h={8}
+            bgColor="#1db954"
+            color="#fff"
+            borderRadius={500}
+            fontSize="12px"
+          >
+            LOG IN
+          </Button>
+        </Flex>
       )}
     </Box>
   )
