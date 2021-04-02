@@ -27,6 +27,21 @@ type ComponentProps = {
 
 const iconSize = 30
 
+const getDotButtonStyles = (bool: boolean) =>
+  bool
+    ? ({
+        pos: 'relative',
+        _before: {
+          pos: 'absolute',
+          top: '35px',
+          content: '""',
+          w: '3px',
+          h: '3px',
+          bgColor: '#1db954',
+        },
+      } as const)
+    : {}
+
 const Component: VFC<ComponentProps> = ({
   player: {
     track,
@@ -63,6 +78,7 @@ const Component: VFC<ComponentProps> = ({
       <Flex justifyContent="center">
         <IconButton
           onClick={toggleShuffle}
+          {...getDotButtonStyles(isShuffle)}
           icon={
             <BiShuffle size={20} {...(isShuffle && { color: '#1db954' })} />
           }
@@ -76,13 +92,14 @@ const Component: VFC<ComponentProps> = ({
         <IconButton onClick={next} icon={<BiSkipNext size={iconSize} />} />
         <IconButton
           onClick={nextRepeatState}
+          {...getDotButtonStyles(repeatState === 'track')}
           icon={
             <IoRepeat
               size={26}
               // TODO: スタイル調整
               {...(repeatState === 'context'
                 ? { color: '#1db954' }
-                : repeatState === 'track' && { color: 'red' })}
+                : repeatState === 'track' && { color: '#1db954' })}
             />
           }
         />
