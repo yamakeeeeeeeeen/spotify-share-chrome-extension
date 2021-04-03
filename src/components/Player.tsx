@@ -38,6 +38,7 @@ const getDotButtonStyles = (bool: boolean) =>
           w: '3px',
           h: '3px',
           bgColor: '#1db954',
+          borderRadius: '50%',
         },
       } as const)
     : {}
