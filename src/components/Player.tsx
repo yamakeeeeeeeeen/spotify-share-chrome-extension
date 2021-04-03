@@ -16,6 +16,7 @@ import { ImTwitter } from 'react-icons/im'
 import { IoRepeat } from 'react-icons/io5'
 import { IoReloadOutline } from 'react-icons/io5'
 import type { SpotifyWebApi } from 'spotify-web-api-ts'
+import { COLOR } from 'styles'
 
 type Props = {
   spotify: SpotifyWebApi
@@ -35,7 +36,7 @@ const getDotButtonStyles = (bool: boolean) =>
           content: '""',
           w: '3px',
           h: '3px',
-          bgColor: '#1db954',
+          bgColor: COLOR.PRIMARY,
           borderRadius: '50%',
         },
       } as const)
@@ -52,7 +53,7 @@ const TrackRepeatIcon: VFC = () => (
     <Box
       w={3}
       h={3}
-      bgColor="#1db954"
+      bgColor={COLOR.PRIMARY}
       color="black"
       fontSize="8px"
       borderRadius="50%"
@@ -101,7 +102,7 @@ const Component: VFC<ComponentProps> = ({
           pos="relative"
           {...getDotButtonStyles(isShuffle)}
           icon={
-            <BiShuffle size={20} {...(isShuffle && { color: '#1db954' })} />
+            <BiShuffle size={20} {...(isShuffle && { color: COLOR.PRIMARY })} />
           }
         />
         <IconButton onClick={prev} icon={<BiSkipPrevious size={iconSize} />} />
@@ -118,7 +119,7 @@ const Component: VFC<ComponentProps> = ({
           icon={
             <IoRepeat
               size={26}
-              {...(repeatState !== 'off' ? { color: '#1db954' } : {})}
+              {...(repeatState !== 'off' ? { color: COLOR.PRIMARY } : {})}
             />
           }
         >
@@ -141,7 +142,7 @@ const Component: VFC<ComponentProps> = ({
             onClick={() => toggleFavorite(track.id)}
             icon={
               isFavorite ? (
-                <AiFillHeart size={20} color={'#1db954'} />
+                <AiFillHeart size={20} color={COLOR.PRIMARY} />
               ) : (
                 <AiOutlineHeart size={20} />
               )

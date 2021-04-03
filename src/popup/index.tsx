@@ -3,6 +3,7 @@ import { Player } from 'components/Player'
 import { useAuth } from 'hooks/useAuth'
 import type { VFC } from 'react'
 import React from 'react'
+import { COLOR } from 'styles'
 import { login } from 'utils/spotify/login'
 
 export const PopupPage: VFC = () => {
@@ -24,7 +25,7 @@ export const PopupPage: VFC = () => {
             onClick={login}
             w={160}
             h={8}
-            bgColor="#1db954"
+            bgColor={COLOR.PRIMARY}
             color="#fff"
             borderRadius={500}
             fontSize="12px"

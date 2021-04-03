@@ -12,3 +12,7 @@ export const playerButtonStyles = {
     border: 'none',
   },
 }
+
+export const COLOR = {
+  PRIMARY: '#1db954',
+}
