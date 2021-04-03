@@ -16,7 +16,7 @@ import { ImTwitter } from 'react-icons/im'
 import { IoRepeat } from 'react-icons/io5'
 import { IoReloadOutline } from 'react-icons/io5'
 import type { SpotifyWebApi } from 'spotify-web-api-ts'
-import { COLOR } from 'styles'
+import { COLOR, getDotButtonStyles } from 'styles'
 
 type Props = {
   spotify: SpotifyWebApi
@@ -27,20 +27,6 @@ type ComponentProps = {
 }
 
 const iconSize = 30
-const getDotButtonStyles = (bool: boolean) =>
-  bool
-    ? ({
-        _before: {
-          pos: 'absolute',
-          top: '35px',
-          content: '""',
-          w: '3px',
-          h: '3px',
-          bgColor: COLOR.PRIMARY,
-          borderRadius: '50%',
-        },
-      } as const)
-    : {}
 const TrackRepeatIcon: VFC = () => (
   <Box
     p="2px"
