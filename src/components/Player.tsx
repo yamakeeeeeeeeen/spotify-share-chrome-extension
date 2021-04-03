@@ -26,11 +26,9 @@ type ComponentProps = {
 }
 
 const iconSize = 30
-
 const getDotButtonStyles = (bool: boolean) =>
   bool
     ? ({
-        pos: 'relative',
         _before: {
           pos: 'absolute',
           top: '35px',
@@ -42,6 +40,27 @@ const getDotButtonStyles = (bool: boolean) =>
         },
       } as const)
     : {}
+const TrackRepeatIcon: VFC = () => (
+  <Box
+    p="2px"
+    bgColor="#1e1e1e"
+    pos="absolute"
+    top="6px"
+    right="12px"
+    borderRadius="50%"
+  >
+    <Box
+      w={3}
+      h={3}
+      bgColor="#1db954"
+      color="black"
+      fontSize="8px"
+      borderRadius="50%"
+    >
+      1
+    </Box>
+  </Box>
+)
 
 const Component: VFC<ComponentProps> = ({
   player: {
@@ -79,6 +98,7 @@ const Component: VFC<ComponentProps> = ({
       <Flex justifyContent="center">
         <IconButton
           onClick={toggleShuffle}
+          pos="relative"
           {...getDotButtonStyles(isShuffle)}
           icon={
             <BiShuffle size={20} {...(isShuffle && { color: '#1db954' })} />
@@ -93,17 +113,17 @@ const Component: VFC<ComponentProps> = ({
         <IconButton onClick={next} icon={<BiSkipNext size={iconSize} />} />
         <IconButton
           onClick={nextRepeatState}
-          {...getDotButtonStyles(repeatState === 'track')}
+          pos="relative"
+          {...getDotButtonStyles(repeatState !== 'off')}
           icon={
             <IoRepeat
               size={26}
-              // TODO: スタイル調整
-              {...(repeatState === 'context'
-                ? { color: '#1db954' }
-                : repeatState === 'track' && { color: '#1db954' })}
+              {...(repeatState !== 'off' ? { color: '#1db954' } : {})}
             />
           }
-        />
+        >
+          {repeatState === 'track' && <TrackRepeatIcon />}
+        </IconButton>
       </Flex>
 
       <Flex justifyContent="center">
