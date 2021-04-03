@@ -21,4 +21,4 @@
 
 You can control the music playing on Spotify from a chrome extension.
 
-![image](https://user-images.githubusercontent.com/53547520/111936078-36c7e000-8b08-11eb-9c67-6671fc30a07b.png)
+![image](https://user-images.githubusercontent.com/53547520/113472155-04b96500-949c-11eb-9d7a-00416a07f8b5.png)
