@@ -9,7 +9,7 @@ type Props = ButtonProps & {
 }
 
 export const IconButton: FC<Props> = ({ icon, children, ...rest }) => (
-  <Button {...rest} {...playerButtonStyles}>
+  <Button {...playerButtonStyles} {...rest}>
     {icon}
     {children}
   </Button>

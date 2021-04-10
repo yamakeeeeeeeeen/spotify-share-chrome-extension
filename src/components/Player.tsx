@@ -83,13 +83,16 @@ const Component: VFC<ComponentProps> = ({
       </Box>
 
       <Flex justifyContent="center">
+        {/*TODO: 白ボタン時のhoverの色修正*/}
         <IconButton
           onClick={toggleShuffle}
           pos="relative"
+          {...(isShuffle && { color: COLOR.PRIMARY })}
+          _hover={{
+            color: COLOR.PRIMARY_HOVER,
+          }}
           {...getDotButtonStyles(isShuffle)}
-          icon={
-            <BiShuffle size={20} {...(isShuffle && { color: COLOR.PRIMARY })} />
-          }
+          icon={<BiShuffle size={20} />}
         />
         <IconButton onClick={prev} icon={<BiSkipPrevious size={iconSize} />} />
         {isPlaying ? (
@@ -101,13 +104,12 @@ const Component: VFC<ComponentProps> = ({
         <IconButton
           onClick={nextRepeatState}
           pos="relative"
+          {...(repeatState !== 'off' ? { color: COLOR.PRIMARY } : {})}
+          _hover={{
+            color: COLOR.PRIMARY_HOVER,
+          }}
           {...getDotButtonStyles(repeatState !== 'off')}
-          icon={
-            <IoRepeat
-              size={26}
-              {...(repeatState !== 'off' ? { color: COLOR.PRIMARY } : {})}
-            />
-          }
+          icon={<IoRepeat size={26} />}
         >
           {repeatState === 'track' && <TrackRepeatIcon />}
         </IconButton>

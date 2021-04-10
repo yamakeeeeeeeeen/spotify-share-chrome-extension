@@ -15,6 +15,7 @@ export const playerButtonStyles = {
 
 export const COLOR = {
   PRIMARY: '#1db954',
+  PRIMARY_HOVER: '#1ed760',
 }
 
 export const getDotButtonStyles = (bool: boolean) =>
