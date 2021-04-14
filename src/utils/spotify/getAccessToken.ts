@@ -11,11 +11,18 @@ export const getAccessToken = async (code: string): Promise<string> => {
   params.append('code', code)
   params.append('redirect_uri', REDIRECT_URIS || '')
 
-  const response = await axios.post(url, params, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${encodeToBase64(`${CLIENT_ID}:${CLIENT_SECRET}`)}`,
-    },
-  })
+  const response = await axios
+    .post(url, params, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${encodeToBase64(
+          `${CLIENT_ID}:${CLIENT_SECRET}`
+        )}`,
+      },
+    })
+    .catch((reason) => {
+      throw new Error(reason)
+    })
+
   return response.data.access_token
 }
